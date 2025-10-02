@@ -13,6 +13,9 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resources/views'));
 
 
+// sử dụng với method = post để hiện thị req.body
+app.use(express.json()); // parse application/json
+app.use(express.urlencoded({ extended: true })); // parse application/x-www-form-urlencoded
 
 
 // Định nghĩa route GET '/'
@@ -32,6 +35,7 @@ app.get('/search', (req, res)=>{
 });
 
 app.post('/search',(req, res)=>{
+  console.log( req.body)
   res.render('search')
 } )
 
