@@ -13,7 +13,7 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resources/views'));
 
 
-app.use(express.static(path.join(__dirname, 'public')));
+
 
 // Định nghĩa route GET '/'
 app.get('/', (req, res) => {
@@ -25,7 +25,7 @@ app.get('/news', (req, res)=>{
 })
 
 // đường link sử dụng ảnh 
-
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Lắng nghe port 3000
 app.listen(port, () => {
