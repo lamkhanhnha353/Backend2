@@ -21,8 +21,19 @@ app.get('/', (req, res) => {
 })
 
 app.get('/news', (req, res)=>{
+  console.log(req.query.q)
   res.render('news.hbs');
 })
+
+
+app.get('/search', (req, res)=>{
+
+  res.render('search.hbs');
+});
+
+app.post('/search',(req, res)=>{
+  res.render('search')
+} )
 
 // đường link sử dụng ảnh 
 app.use(express.static(path.join(__dirname, 'public')));
