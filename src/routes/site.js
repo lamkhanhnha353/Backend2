@@ -7,8 +7,8 @@ const siteController = require('../app/Controllers/SiteControllers');
 
 
 
-router.use('/search', siteController.search);
-router.use('/', siteController.home);
+router.get('/search', siteController.search);
+router.get('/', siteController.home);
 
 
 

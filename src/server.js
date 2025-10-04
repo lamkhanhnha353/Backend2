@@ -3,10 +3,7 @@ const port = 3000;
 const { engine } = require('express-handlebars');
 const path = require('path');
 const app = express();
-
 const router = require('./routes/serverRouter');
-
-
 
 //cau hình handlebars
 app.engine('hbs', engine({
@@ -26,12 +23,13 @@ app.use(express.urlencoded({ extended: true })); // parse application/x-www-form
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+//connect mongodb
+const mongodb = require('./config/data/serverdata');
+mongodb.connect();
+
 // Định nghĩa route GET '/'
 
-
-
 router(app);
-
 
 
 // Lắng nghe port 3000
