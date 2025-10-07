@@ -32,6 +32,23 @@ class CoursesControllers{
       
 
     }
+    //[get] /courses/:id/edit
+    edit(req, res, next){
+        Course.findById(req.params.id)
+            .then( courses => {
+                    courses = courses.toObject();
+                    res.render('./courses/idEdit.hbs', {courses})
+                }
+            )
+            .catch(next);
+        // res.render('./courses/idEdit.hbs');
+    }
+    update(req, res, next){
+        Course.updateOne( {_id: req.params.id}, req.body)
+            .then( () => res.redirect('/me/stored/courses'))
+            .catch(next)
+        
+    }
 }
 
 module.exports = new CoursesControllers;

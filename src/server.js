@@ -4,10 +4,14 @@ const { engine } = require('express-handlebars');
 const path = require('path');
 const app = express();
 const router = require('./routes/serverRouter');
+const methodOverride = require('method-override'); // định dạng ở method
 
 //cau hình handlebars
 app.engine('hbs', engine({
-    extname: '.hbs' // đổi đuôi file mặc định .handlebars -> .hbs
+    extname: '.hbs',  // đổi đuôi file mặc định .handlebars -> .hbs
+    helpers: {
+      sum: (a, b) => a + b, 
+    }
 }));
 
 app.set('view engine', 'hbs');
@@ -29,6 +33,7 @@ mongodb.connect();
 
 // Định nghĩa route GET '/'
 
+app.use(methodOverride('_method'));
 router(app);
 
 
