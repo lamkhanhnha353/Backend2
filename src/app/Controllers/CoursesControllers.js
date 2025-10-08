@@ -6,10 +6,17 @@ const Course = require('../model/Course');
 class CoursesControllers{
   //courses/:slug
     show(req, res, next){
-        Course.findOne( {slug: req.params.slug})  //tìm và lặp qua một cái key trong cơ sở dữ liệu là slug
-            .then( courses => {
-                courses = courses.toObject();
-                res.render('./courses/show.hbs', {courses})
+        // Course.findOne( {slug: req.params.slug})  //tìm và lặp qua một cái key trong cơ sở dữ liệu là slug
+        //     .then( courses => {
+        //         courses = courses.toObject();
+        //         res.render('./courses/show.hbs', {courses})
+        //     })
+        //     .catch(next);
+
+        Course.findOne({ slug: req.params.slug })
+            .then(courses => {
+                if (!courses) return res.status(404).send('Không tìm thấy khóa học');
+                res.render('./courses/show.hbs', { courses: courses.toObject() });
             })
             .catch(next);
 
@@ -49,6 +56,15 @@ class CoursesControllers{
             .catch(next)
         
     }
+
+    
+    delete(req, res, next) {
+            Course.deleteOne({ _id: req.params.id })
+                .then(() => {
+                res.redirect('/me/stored/courses?deleted=true');
+                })
+                .catch(next);
+}
 }
 
 module.exports = new CoursesControllers;
